@@ -9,15 +9,20 @@ use League\Tactician\Tests\Fixtures\Command\AddTaskCommand;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class CommandBusTest
+ *
+ * @package League\Tactician\Tests
+ */
 class CommandBusTest extends TestCase
 {
-    public function testAllMiddlewareAreExecutedAndReturnValuesAreRespected()
+    public function testAllMiddlewareAreExecutedAndReturnValuesAreRespected(): void
     {
         $executionOrder = [];
 
         $middleware1 = Mockery::mock(Middleware::class);
         $middleware1->shouldReceive('execute')->andReturnUsing(
-            function ($command, $next) use (&$executionOrder) {
+            static function ($command, $next) use (&$executionOrder) {
                 $executionOrder[] = 1;
                 return $next($command);
             }
@@ -25,7 +30,7 @@ class CommandBusTest extends TestCase
 
         $middleware2 = Mockery::mock(Middleware::class);
         $middleware2->shouldReceive('execute')->andReturnUsing(
-            function ($command, $next) use (&$executionOrder) {
+            static function ($command, $next) use (&$executionOrder) {
                 $executionOrder[] = 2;
                 return $next($command);
             }
@@ -33,7 +38,7 @@ class CommandBusTest extends TestCase
 
         $middleware3 = Mockery::mock(Middleware::class);
         $middleware3->shouldReceive('execute')->andReturnUsing(
-            function () use (&$executionOrder) {
+            static function () use (&$executionOrder) {
                 $executionOrder[] = 3;
                 return 'foobar';
             }
@@ -41,36 +46,36 @@ class CommandBusTest extends TestCase
 
         $commandBus = new CommandBus([$middleware1, $middleware2, $middleware3]);
 
-        $this->assertEquals('foobar', $commandBus->handle(new AddTaskCommand()));
-        $this->assertEquals([1, 2, 3], $executionOrder);
+        self::assertEquals('foobar', $commandBus->handle(new AddTaskCommand()));
+        self::assertEquals([1, 2, 3], $executionOrder);
     }
 
-    public function testSingleMiddlewareWorks()
+    public function testSingleMiddlewareWorks(): void
     {
         $middleware = Mockery::mock(Middleware::class);
         $middleware->shouldReceive('execute')->once()->andReturn('foobar');
 
         $commandBus = new CommandBus([$middleware]);
 
-        $this->assertEquals(
+        self::assertEquals(
             'foobar',
             $commandBus->handle(new AddTaskCommand())
         );
     }
 
-    public function testNoMiddlewarePerformsASafeNoop()
+    public function testNoMiddlewarePerformsASafeNoop(): void
     {
         (new CommandBus([]))->handle(new AddTaskCommand());
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
-    public function testHandleThrowExceptionForInvalidCommand()
+    public function testHandleThrowExceptionForInvalidCommand(): void
     {
         $this->expectException(InvalidCommandException::class);
         (new CommandBus([]))->handle('must be an object');
     }
 
-    public function testIfOneCanOnlyCreateWithValidMiddlewares()
+    public function testIfOneCanOnlyCreateWithValidMiddlewares(): void
     {
         $middlewareList = [$this->createMock('stdClass')];
 
@@ -78,9 +83,9 @@ class CommandBusTest extends TestCase
         new CommandBus($middlewareList);
     }
 
-    public function testIfValidMiddlewaresAreAccepted()
+    public function testIfValidMiddlewaresAreAccepted(): void
     {
-        $middlewareList = [$this->createMock('\League\Tactician\Middleware')];
+        $middlewareList = [$this->createMock(Middleware::class)];
 
         new CommandBus($middlewareList);
         $this->addToAssertionCount(1);

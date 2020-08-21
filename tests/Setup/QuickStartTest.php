@@ -9,15 +9,20 @@ use League\Tactician\Tests\Fixtures\Command\CompleteTaskCommand;
 use League\Tactician\Tests\Fixtures\Handler\HandleMethodHandler;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class QuickStartTest
+ *
+ * @package League\Tactician\Tests\Setup
+ */
 class QuickStartTest extends TestCase
 {
-    public function testReturnsACommandBus()
+    public function testReturnsACommandBus(): void
     {
         $commandBus = QuickStart::create([]);
-        $this->assertInstanceOf(CommandBus::class, $commandBus);
+        self::assertInstanceOf(CommandBus::class, $commandBus);
     }
 
-    public function testCommandToHandlerMapIsProperlyConfigured()
+    public function testCommandToHandlerMapIsProperlyConfigured(): void
     {
         $map = [
             AddTaskCommand::class => $this->createMock(HandleMethodHandler::class),

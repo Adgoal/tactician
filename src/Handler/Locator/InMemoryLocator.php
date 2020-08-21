@@ -38,7 +38,7 @@ class InMemoryLocator implements HandlerLocator
      * @param object $handler Handler to receive class
      * @param string $commandClassName Command class e.g. "My\TaskAddedCommand"
      */
-    public function addHandler($handler, $commandClassName)
+    public function addHandler($handler, $commandClassName): void
     {
         $this->handlers[$commandClassName] = $handler;
     }
@@ -54,7 +54,7 @@ class InMemoryLocator implements HandlerLocator
      *
      * @param array $commandClassToHandlerMap
      */
-    protected function addHandlers(array $commandClassToHandlerMap)
+    protected function addHandlers(array $commandClassToHandlerMap): void
     {
         foreach ($commandClassToHandlerMap as $commandClass => $handler) {
             $this->addHandler($handler, $commandClass);

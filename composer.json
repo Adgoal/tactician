@@ -1,5 +1,5 @@
 {
-    "name":        "league/tactician",
+    "name":        "adgoal/tactician",
     "description": "A small, flexible command bus. Handy for building service layers.",
     "keywords":    ["command", "command bus", "service layer"],
     "license":     "MIT",
@@ -10,12 +10,12 @@
         }
     ],
     "require": {
-        "php":  ">=5.5"
+        "php": ">=7.1"
     },
     "require-dev": {
         "mockery/mockery": "~1.2",
-        "phpunit/phpunit": "^8.2",
-        "squizlabs/php_codesniffer": "~2.3"
+        "phpunit/phpunit": "^7.5 | ^9.3",
+        "squizlabs/php_codesniffer": "3.5.6"
     },
     "autoload": {
         "psr-4": {
@@ -29,10 +29,5 @@
         "files": [
             "tests/Fixtures/Command/CommandWithoutNamespace.php"
         ]
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.0-dev"
-        }
     }
 }

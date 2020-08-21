@@ -3,6 +3,7 @@
 namespace League\Tactician\Plugins;
 
 use League\Tactician\Middleware;
+use Throwable;
 
 /**
  * If another command is already being executed, locks the command bus and
@@ -26,13 +27,13 @@ class LockingMiddleware implements Middleware
      * @param object   $command
      * @param callable $next
      *
-     * @throws \Exception
+     * @throws Throwable
      *
      * @return mixed|void
      */
     public function execute($command, callable $next)
     {
-        $this->queue[] = function () use ($command, $next) {
+        $this->queue[] = static function () use ($command, $next) {
             return $next($command);
         };
 
@@ -43,7 +44,7 @@ class LockingMiddleware implements Middleware
 
         try {
             $returnValue = $this->executeQueuedJobs();
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             $this->isExecuting = false;
             $this->queue = [];
             throw $e;

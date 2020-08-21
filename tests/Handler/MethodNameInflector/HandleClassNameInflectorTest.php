@@ -9,6 +9,11 @@ use CommandWithoutNamespace;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class HandleClassNameInflectorTest
+ *
+ * @package League\Tactician\Tests\Handler\MethodNameInflector
+ */
 class HandleClassNameInflectorTest extends TestCase
 {
     /**
@@ -27,21 +32,21 @@ class HandleClassNameInflectorTest extends TestCase
         $this->handler = new ConcreteMethodsHandler();
     }
 
-    public function testHandlesClassesWithoutNamespace()
+    public function testHandlesClassesWithoutNamespace(): void
     {
         $command = new CommandWithoutNamespace();
 
-        $this->assertEquals(
+        self::assertEquals(
             'handleCommandWithoutNamespace',
             $this->inflector->inflect($command, $this->mockHandler)
         );
     }
 
-    public function testHandlesNamespacedClasses()
+    public function testHandlesNamespacedClasses(): void
     {
         $command = new CompleteTaskCommand();
 
-        $this->assertEquals(
+        self::assertEquals(
             'handleCompleteTaskCommand',
             $this->inflector->inflect($command, $this->mockHandler)
         );

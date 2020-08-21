@@ -41,7 +41,7 @@ class HandleClassNameWithoutSuffixInflector extends HandleClassNameInflector
      * @param object $commandHandler
      * @return string
      */
-    public function inflect($command, $commandHandler)
+    public function inflect($command, $commandHandler): string
     {
         $methodName = parent::inflect($command, $commandHandler);
 

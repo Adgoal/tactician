@@ -13,11 +13,11 @@ use PHPUnit\Framework\TestCase;
  */
 class HandleInflectorTest extends TestCase
 {
-    public function testReturnsHandleMethod()
+    public function testReturnsHandleMethod(): void
     {
         $inflector = new HandleInflector;
 
-        $this->assertEquals(
+        self::assertEquals(
             'handle',
             $inflector->inflect(new CompleteTaskCommand(), new ConcreteMethodsHandler())
         );

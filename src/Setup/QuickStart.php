@@ -30,7 +30,7 @@ class QuickStart
      *
      * @return CommandBus
      */
-    public static function create($commandToHandlerMap)
+    public static function create($commandToHandlerMap): CommandBus
     {
         $handlerMiddleware = new CommandHandlerMiddleware(
             new ClassNameExtractor(),

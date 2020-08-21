@@ -10,6 +10,11 @@ use Mockery;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+/**
+ * Class InMemoryLocatorTest
+ *
+ * @package League\Tactician\Tests\Handler\Locator
+ */
 class InMemoryLocatorTest extends TestCase
 {
     /**
@@ -22,19 +27,19 @@ class InMemoryLocatorTest extends TestCase
         $this->inMemoryLocator = new InMemoryLocator();
     }
 
-    public function testHandlerIsReturnedForSpecificClass()
+    public function testHandlerIsReturnedForSpecificClass(): void
     {
         $handler = new stdClass();
 
         $this->inMemoryLocator->addHandler($handler, CompleteTaskCommand::class);
 
-        $this->assertSame(
+        self::assertSame(
             $handler,
             $this->inMemoryLocator->getHandlerForCommand(CompleteTaskCommand::class)
         );
     }
 
-    public function testConstructorAcceptsMapOfCommandClassesToHandlers()
+    public function testConstructorAcceptsMapOfCommandClassesToHandlers(): void
     {
         $commandToHandlerMap = [
             AddTaskCommand::class => new stdClass(),
@@ -43,18 +48,18 @@ class InMemoryLocatorTest extends TestCase
 
         $locator = new InMemoryLocator($commandToHandlerMap);
 
-        $this->assertSame(
+        self::assertSame(
             $commandToHandlerMap[AddTaskCommand::class],
             $locator->getHandlerForCommand(AddTaskCommand::class)
         );
 
-        $this->assertSame(
+        self::assertSame(
             $commandToHandlerMap[CompleteTaskCommand::class],
             $locator->getHandlerForCommand(CompleteTaskCommand::class)
         );
     }
 
-    public function testHandlerMissing()
+    public function testHandlerMissing(): void
     {
         $this->expectException(MissingHandlerException::class);
         $this->inMemoryLocator->getHandlerForCommand(CompleteTaskCommand::class);

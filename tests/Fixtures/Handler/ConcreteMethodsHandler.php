@@ -8,7 +8,10 @@ namespace League\Tactician\Tests\Fixtures\Handler;
  */
 class ConcreteMethodsHandler
 {
-    public function handleTaskCompletedCommand($command)
+    /**
+     * @param $command
+     */
+    public function handleTaskCompletedCommand($command): void
     {
     }
 }

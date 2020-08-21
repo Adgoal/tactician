@@ -2,12 +2,19 @@
 
 namespace League\Tactician\Exception;
 
+use InvalidArgumentException;
+
 /**
  * Thrown when the CommandBus was instantiated with an invalid middleware object
  */
-class InvalidMiddlewareException extends \InvalidArgumentException implements Exception
+class InvalidMiddlewareException extends InvalidArgumentException implements Exception
 {
-    public static function forMiddleware($middleware)
+    /**
+     * @param $middleware
+     *
+     * @return InvalidMiddlewareException
+     */
+    public static function forMiddleware($middleware): InvalidMiddlewareException
     {
         $name = is_object($middleware) ? get_class($middleware) : gettype($middleware);
         $message = sprintf(

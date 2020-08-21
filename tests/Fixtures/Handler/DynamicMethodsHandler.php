@@ -17,7 +17,7 @@ class DynamicMethodsHandler
     /**
      * @return string[]
      */
-    public function getMethodsInvoked()
+    public function getMethodsInvoked(): array
     {
         return $this->methods;
     }

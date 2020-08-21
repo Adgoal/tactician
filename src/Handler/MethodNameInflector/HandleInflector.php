@@ -10,7 +10,7 @@ class HandleInflector implements MethodNameInflector
     /**
      * {@inheritdoc}
      */
-    public function inflect($command, $commandHandler)
+    public function inflect($command, $commandHandler): string
     {
         return 'handle';
     }

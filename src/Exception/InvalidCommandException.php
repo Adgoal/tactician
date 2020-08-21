@@ -2,10 +2,12 @@
 
 namespace League\Tactician\Exception;
 
+use RuntimeException;
+
 /**
  * Thrown when the command bus is given an non-object to use as a command.
  */
-class InvalidCommandException extends \RuntimeException implements Exception
+class InvalidCommandException extends RuntimeException implements Exception
 {
     /**
      * @var mixed

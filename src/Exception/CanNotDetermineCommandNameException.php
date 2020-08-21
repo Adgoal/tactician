@@ -2,10 +2,12 @@
 
 namespace League\Tactician\Exception;
 
+use RuntimeException;
+
 /**
  * Thrown when a CommandNameExtractor cannot determine the command's name
  */
-class CanNotDetermineCommandNameException extends \RuntimeException implements Exception
+class CanNotDetermineCommandNameException extends RuntimeException implements Exception
 {
     /**
      * @var mixed

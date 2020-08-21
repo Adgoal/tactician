@@ -12,5 +12,5 @@ interface NamedCommand
      *
      * @return string
      */
-    public function getCommandName();
+    public function getCommandName(): string;
 }

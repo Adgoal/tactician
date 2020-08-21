@@ -19,5 +19,5 @@ interface CommandNameExtractor
      *
      * @throws CannotDetermineCommandNameException
      */
-    public function extract($command);
+    public function extract($command): string;
 }

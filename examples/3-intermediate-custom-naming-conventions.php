@@ -21,7 +21,7 @@ class MyCustomInflector implements MethodNameInflector
 {
     // You can use the command and commandHandler to generate any name you
     // prefer but here, we'll always return the same one.
-    public function inflect($command, $commandHandler)
+    public function inflect($command, $commandHandler): string
     {
         return 'handle';
     }

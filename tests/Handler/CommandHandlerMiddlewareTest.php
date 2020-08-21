@@ -10,10 +10,16 @@ use League\Tactician\Handler\MethodNameInflector\MethodNameInflector;
 use League\Tactician\Tests\Fixtures\Command\CompleteTaskCommand;
 use League\Tactician\Tests\Fixtures\Handler\DynamicMethodsHandler;
 use League\Tactician\Tests\Fixtures\Handler\ConcreteMethodsHandler;
+use LogicException;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Mockery;
 
+/**
+ * Class CommandHandlerMiddlewareTest
+ *
+ * @package League\Tactician\Tests\Handler
+ */
 class CommandHandlerMiddlewareTest extends TestCase
 {
     /**
@@ -49,7 +55,7 @@ class CommandHandlerMiddlewareTest extends TestCase
         );
     }
 
-    public function testHandlerIsExecuted()
+    public function testHandlerIsExecuted(): void
     {
         $command = new CompleteTaskCommand();
 
@@ -75,10 +81,10 @@ class CommandHandlerMiddlewareTest extends TestCase
             ->with($command)
             ->andReturn(CompleteTaskCommand::class);
 
-        $this->assertEquals('a-return-value', $this->middleware->execute($command, $this->mockNext()));
+        self::assertEquals('a-return-value', $this->middleware->execute($command, $this->mockNext()));
     }
 
-    public function testMissingMethodOnHandlerObjectIsDetected()
+    public function testMissingMethodOnHandlerObjectIsDetected(): void
     {
         $command = new CompleteTaskCommand();
 
@@ -98,7 +104,7 @@ class CommandHandlerMiddlewareTest extends TestCase
         $this->middleware->execute($command, $this->mockNext());
     }
 
-    public function testDynamicMethodNamesAreSupported()
+    public function testDynamicMethodNamesAreSupported(): void
     {
         $command = new CompleteTaskCommand();
         $handler = new DynamicMethodsHandler();
@@ -117,17 +123,17 @@ class CommandHandlerMiddlewareTest extends TestCase
 
         $this->middleware->execute($command, $this->mockNext());
 
-        $this->assertEquals(
+        self::assertEquals(
             ['someHandlerMethod'],
             $handler->getMethodsInvoked()
         );
     }
 
-    public function testClosuresCanBeInvoked()
+    public function testClosuresCanBeInvoked(): void
     {
         $command = new CompleteTaskCommand();
         $closureWasExecuted = false;
-        $handler = function () use (&$closureWasExecuted) {
+        $handler = static function () use (&$closureWasExecuted) {
             $closureWasExecuted = true;
         };
 
@@ -145,16 +151,16 @@ class CommandHandlerMiddlewareTest extends TestCase
 
         $this->middleware->execute($command, $this->mockNext());
 
-        $this->assertTrue($closureWasExecuted);
+        self::assertTrue($closureWasExecuted);
     }
 
     /**
      * @return callable
      */
-    protected function mockNext()
+    protected function mockNext(): callable
     {
-        return function () {
-            throw new \LogicException('Middleware fell through to next callable, this should not happen in the test.');
+        return static function () {
+            throw new LogicException('Middleware fell through to next callable, this should not happen in the test.');
         };
     }
 

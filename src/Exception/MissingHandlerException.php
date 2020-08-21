@@ -2,10 +2,12 @@
 
 namespace League\Tactician\Exception;
 
+use OutOfBoundsException;
+
 /**
  * No handler could be found for the given command.
  */
-class MissingHandlerException extends \OutOfBoundsException implements Exception
+class MissingHandlerException extends OutOfBoundsException implements Exception
 {
     /**
      * @var string
@@ -28,7 +30,7 @@ class MissingHandlerException extends \OutOfBoundsException implements Exception
     /**
      * @return string
      */
-    public function getCommandName()
+    public function getCommandName(): string
     {
         return $this->commandName;
     }

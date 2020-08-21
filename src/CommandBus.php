@@ -47,9 +47,9 @@ class CommandBus
      *
      * @return callable
      */
-    private function createExecutionChain($middlewareList)
+    private function createExecutionChain($middlewareList): callable
     {
-        $lastCallable = function () {
+        $lastCallable = static function () {
             // the final callable is a no-op
         };
 
@@ -58,7 +58,7 @@ class CommandBus
                 throw InvalidMiddlewareException::forMiddleware($middleware);
             }
 
-            $lastCallable = function ($command) use ($middleware, $lastCallable) {
+            $lastCallable = static function ($command) use ($middleware, $lastCallable) {
                 return $middleware->execute($command, $lastCallable);
             };
         }

@@ -11,7 +11,7 @@ class InvokeInflector implements MethodNameInflector
     /**
      * {@inheritdoc}
      */
-    public function inflect($command, $commandHandler)
+    public function inflect($command, $commandHandler): string
     {
         return '__invoke';
     }

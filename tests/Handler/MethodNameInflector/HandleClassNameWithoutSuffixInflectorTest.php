@@ -9,6 +9,11 @@ use DateTime;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class HandleClassNameWithoutSuffixInflectorTest
+ *
+ * @package League\Tactician\Tests\Handler\MethodNameInflector
+ */
 class HandleClassNameWithoutSuffixInflectorTest extends TestCase
 {
     /**
@@ -27,29 +32,29 @@ class HandleClassNameWithoutSuffixInflectorTest extends TestCase
         $this->handler = new ConcreteMethodsHandler();
     }
 
-    public function testRemovesCommandSuffixFromClasses()
+    public function testRemovesCommandSuffixFromClasses(): void
     {
         $command = new CompleteTaskCommand();
 
-        $this->assertEquals(
+        self::assertEquals(
             'handleCompleteTask',
             $this->inflector->inflect($command, $this->mockHandler)
         );
     }
 
-    public function testDoesNotChangeClassesWithoutSuffix()
+    public function testDoesNotChangeClassesWithoutSuffix(): void
     {
-        $this->assertEquals(
+        self::assertEquals(
             'handleDateTime',
             $this->inflector->inflect(new DateTime(), $this->mockHandler)
         );
     }
 
-    public function testRemovesCustomSuffix()
+    public function testRemovesCustomSuffix(): void
     {
         $inflector = new HandleClassNameWithoutSuffixInflector('Time');
 
-        $this->assertEquals(
+        self::assertEquals(
             'handleDate',
             $inflector->inflect(new DateTime(), $this->mockHandler)
         );

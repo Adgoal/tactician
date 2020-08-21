@@ -5,32 +5,41 @@ namespace League\Tactician\Tests\Exception;
 use League\Tactician\Exception\CanNotDetermineCommandNameException;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use SplFileInfo;
+use stdClass;
 
+/**
+ * Class CanNotDetermineCommandNameExceptionTest
+ *
+ * @package League\Tactician\Tests\Exception
+ */
 class CanNotDetermineCommandNameExceptionTest extends TestCase
 {
     /**
      * @dataProvider provideAnyTypeOfCommand
+     *
+     * @param $command
      */
-    public function testForAnyTypeOfCommand($command)
+    public function testForAnyTypeOfCommand($command): void
     {
         $exception = CanNotDetermineCommandNameException::forCommand($command);
-        $this->assertSame($command, $exception->getCommand());
+        self::assertSame($command, $exception->getCommand());
     }
 
-    public function provideAnyTypeOfCommand()
+    public function provideAnyTypeOfCommand(): array
     {
         return [
             [ 1 ],
-            [ new \stdClass() ],
+            [ new stdClass() ],
             [ null ],
             [ 'a string' ],
-            [ new \SplFileInfo(__FILE__) ],
+            [ new SplFileInfo(__FILE__) ],
             [ true ],
             [ false ],
             [ [] ],
             [ [ [ 1 ] ] ],
             [
-                function () {
+                static function () {
                 }
             ],
         ];

@@ -10,7 +10,7 @@ class ClassNameExtractor implements CommandNameExtractor
     /**
      * {@inheritdoc}
      */
-    public function extract($command)
+    public function extract($command): string
     {
         return get_class($command);
     }

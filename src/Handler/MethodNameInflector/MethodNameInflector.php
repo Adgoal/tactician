@@ -16,5 +16,5 @@ interface MethodNameInflector
      *
      * @return string
      */
-    public function inflect($command, $commandHandler);
+    public function inflect($command, $commandHandler): string;
 }

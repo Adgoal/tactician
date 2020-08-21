@@ -7,14 +7,19 @@ use League\Tactician\Tests\Fixtures\Command\CompleteTaskCommand;
 use League\Tactician\Exception\Exception;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class MissingHandlerExceptionTest
+ *
+ * @package League\Tactician\Tests\Exception
+ */
 class MissingHandlerExceptionTest extends TestCase
 {
-    public function testExceptionContainsDebuggingInfo()
+    public function testExceptionContainsDebuggingInfo(): void
     {
         $exception = MissingHandlerException::forCommand(CompleteTaskCommand::class);
 
-        $this->assertStringContainsString(CompleteTaskCommand::class, $exception->getMessage());
-        $this->assertSame(CompleteTaskCommand::class, $exception->getCommandName());
-        $this->assertInstanceOf(Exception::class, $exception);
+        self::assertStringContainsString(CompleteTaskCommand::class, $exception->getMessage());
+        self::assertSame(CompleteTaskCommand::class, $exception->getCommandName());
+        self::assertInstanceOf(Exception::class, $exception);
     }
 }

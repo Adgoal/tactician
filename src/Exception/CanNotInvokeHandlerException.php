@@ -2,13 +2,15 @@
 
 namespace League\Tactician\Exception;
 
+use BadMethodCallException;
+
 /**
  * Thrown when a specific handler object can not be used on a command object.
  *
  * The most common reason is the receiving method is missing or incorrectly
  * named.
  */
-class CanNotInvokeHandlerException extends \BadMethodCallException implements Exception
+class CanNotInvokeHandlerException extends BadMethodCallException implements Exception
 {
     /**
      * @var mixed

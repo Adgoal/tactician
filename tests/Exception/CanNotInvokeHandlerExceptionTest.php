@@ -7,44 +7,53 @@ use League\Tactician\Exception\Exception;
 use League\Tactician\Tests\Fixtures\Command\CompleteTaskCommand;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use SplFileInfo;
+use stdClass;
 
+/**
+ * Class CanNotInvokeHandlerExceptionTest
+ *
+ * @package League\Tactician\Tests\Exception
+ */
 class CanNotInvokeHandlerExceptionTest extends TestCase
 {
-    public function testExceptionContainsDebuggingInfo()
+    public function testExceptionContainsDebuggingInfo(): void
     {
         $command = new CompleteTaskCommand();
 
         $exception = CanNotInvokeHandlerException::forCommand($command, 'Because stuff');
 
-        $this->assertStringContainsString(CompleteTaskCommand::class, $exception->getMessage());
-        $this->assertStringContainsString('Because stuff', $exception->getMessage());
-        $this->assertSame($command, $exception->getCommand());
-        $this->assertInstanceOf(Exception::class, $exception);
+        self::assertStringContainsString(CompleteTaskCommand::class, $exception->getMessage());
+        self::assertStringContainsString('Because stuff', $exception->getMessage());
+        self::assertSame($command, $exception->getCommand());
+        self::assertInstanceOf(Exception::class, $exception);
     }
 
     /**
      * @dataProvider provideAnyTypeOfCommand
+     *
+     * @param $command
      */
-    public function testForAnyTypeOfCommand($command)
+    public function testForAnyTypeOfCommand($command): void
     {
         $exception = CanNotInvokeHandlerException::forCommand($command, 'happens');
-        $this->assertSame($command, $exception->getCommand());
+        self::assertSame($command, $exception->getCommand());
     }
 
-    public function provideAnyTypeOfCommand()
+    public function provideAnyTypeOfCommand(): array
     {
         return [
             [ 1 ],
-            [ new \stdClass() ],
+            [ new stdClass() ],
             [ null ],
             [ 'a string' ],
-            [ new \SplFileInfo(__FILE__) ],
+            [ new SplFileInfo(__FILE__) ],
             [ true ],
             [ false ],
             [ [] ],
             [ [ [ 1 ] ] ],
             [
-                function () {
+                static function () {
                 }
             ],
         ];

@@ -13,11 +13,11 @@ use PHPUnit\Framework\TestCase;
  */
 class InvokeInflectorTest extends TestCase
 {
-    public function testReturnsInvokeMagicMethod()
+    public function testReturnsInvokeMagicMethod(): void
     {
         $inflector = new InvokeInflector();
 
-        $this->assertEquals(
+        self::assertEquals(
             '__invoke',
             $inflector->inflect(new CompleteTaskCommand(), new ConcreteMethodsHandler())
         );

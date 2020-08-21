@@ -14,7 +14,7 @@ class ClassNameInflector implements MethodNameInflector
     /**
      * {@inheritdoc}
      */
-    public function inflect($command, $commandHandler)
+    public function inflect($command, $commandHandler): string
     {
         $commandName = get_class($command);
 

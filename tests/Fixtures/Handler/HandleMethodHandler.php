@@ -8,7 +8,10 @@ namespace League\Tactician\Tests\Fixtures\Handler;
  */
 class HandleMethodHandler
 {
-    public function handle($command)
+    /**
+     * @param $command
+     */
+    public function handle($command): void
     {
     }
 }
